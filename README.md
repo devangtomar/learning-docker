@@ -2,7 +2,7 @@
 
 # For containers and images
 
-## For listing containers which are even stopped..
+## For listing containers which are even stopped
 
 ```bash
 docker container ls -a
@@ -28,7 +28,7 @@ docker images
 docker container run --name webserver -d -p 80:80 -v test:/usr/share/nginx/html nginx
 ```
 
-## For pulling/pushing image and building a image..
+## For pulling/pushing image and building a image
 
 ```bash
 docker image pull busybox
@@ -43,7 +43,7 @@ docker save -o hello.tar busybox
 docker load -i hello.tar
 ```
 
-## Docker container lifecycle..
+## Docker container lifecycle
 
 ```bash
 docker image pull imageName
@@ -56,14 +56,14 @@ docker container unpause containerID
 
 # For Docker volumes and network
 
-## For listing volumes and network..
+## For listing volumes and network
 
 ```bash
 docker network ls
 docker volume ls
 ```
 
-## For creating a volume..
+## For creating a volume
 
 ```bash
 docker volume create volumeName
@@ -76,7 +76,7 @@ You can do the above in single line as well..
 docker container run --name webserver -v C:\users\beayu:/app alpine
 ```
 
-## For creating a network..
+## For creating a network
 
 - Docker containers work like VMs.
 - Every Docker container has network connections
@@ -129,7 +129,7 @@ docker network disconnect bridge1 c2
 
 ```
 
-## Creating a new network using customized network parameters:
+## Creating a new network using customized network parameters
 
 ```bash
 docker network create --driver=bridge --subnet=10.10.0.0/16 --ip-range=10.10.10.0/24 --gateway=10.10.10.10 newbridge
@@ -226,7 +226,7 @@ CMD ["java", "hello"]
 
 and then you run `docker image build -t hello .`
 
-## Brief about Docker compose..
+## Brief about Docker compose
 
 ```yaml
 version: "3.8"

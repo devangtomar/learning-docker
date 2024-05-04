@@ -139,11 +139,10 @@ docker container run --name c1 --net macvlan --mac-address=02:00:00:00:00:01 --i
 
 docker logs --details containerName
 
-## Docker Stats/Memory-CPU Limitations 
+## Docker Stats/Memory-CPU Limitations
 
 docker stats
 docker container run --name [containerName] --memory=512m --memory-swap=512m --cpu-shares=512 --cpu-period=100000 --cpu-quota=50000 nginx
-
 
 ## Docker Environment Variables
 
@@ -152,7 +151,6 @@ docker run -e VARIABLE=value image
 ## Dockerfile Important
 
 RUN VS CMD VS ENTRYPOINT
-
 
 ## Dockerfile: RUN, CMD, and ENTRYPOINT
 
@@ -164,8 +162,81 @@ RUN VS CMD VS ENTRYPOINT
 
 In summary:
 
-* **RUN**: setup, install software, create files
-* **CMD**: default command to run in the container
-* **ENTRYPOINT**: executable to run when the container starts
+- **RUN**: setup, install software, create files
+- **CMD**: default command to run in the container
+- **ENTRYPOINT**: executable to run when the container starts
 
+Sample Docker Files
 
+```dockerfile
+
+FROM python:alpine3.7
+COPY . /app
+WORKDIR /app
+RUN pip install -r requirements.txt
+EXPOSE 5000
+CMD python ./index.py
+
+FROM ubuntu:18.04
+RUN apt-get update -y
+RUN apt-get install default-jre -y
+WORKDIR /myapp
+COPY /myapp .
+CMD ["java","hello"]
+```
+
+## Multi-stage Dockerfile (look at AS in FROM & --from in COPY command..)
+
+```dockerfile
+
+FROM mcr.microsoft.com/java/jdk:8-zulu-alpine AS compiler
+COPY /myapp /usr/src/myapp
+WORKDIR /usr/src/myapp
+RUN javac hello.java
+
+FROM mcr.microsoft.com/java/jre:8-zulu-alpine
+WORKDIR /myapp
+COPY --from=compiler /usr/src/myapp .
+CMD ["java", "hello"]
+```
+
+## Brief about Docker compose..
+
+```dockerfile
+version: "3.8"
+
+services:
+  mydatabase:
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - mydata:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    networks:
+      - mynet
+  mywordpress:
+    image: wordpress:latest
+    depends_on:
+      - mydatabase
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      WORDPRESS_DB_HOST: mydatabase:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    networks:
+      - mynet
+volumes:
+  mydata: {}
+networks:
+  mynet:
+    driver: bridge
+
+```

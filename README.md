@@ -4,57 +4,77 @@
 
 ## For listing containers which are even stopped..
 
+```bash
 docker container ls -a
 docker ps -a
+```
 
 ## Deleting containers
 
+```bash
 docker container rm -rf container_name
+```
 
 ## For listing images
 
+```bash
 docker image ls
 docker images
+```
 
 ## For running container in detach mode with a port as well as volume mounted
 
+```bash
 docker container run --name webserver -d -p 80:80 -v test:/usr/share/nginx/html nginx
+```
 
 ## For pulling/pushing image and building a image..
 
+```bash
 docker image pull busybox
 docker image push busybox
 docker image build -t hello . (run this where Dockerfile is present)
+```
 
 ## For creating a tar and loading a tar
 
+```bash
 docker save -o hello.tar busybox
 docker load -i hello.tar
+```
 
 ## Docker container lifecycle..
 
+```bash
 docker image pull imageName
 docker container run imageName
 docker container start containerID
 docker container stop containerID
 docker container pause containerID
 docker container unpause containerID
+```
 
 # For Docker volumes and network
 
 ## For listing volumes and network..
 
+```bash
 docker network ls
 docker volume ls
+```
 
 ## For creating a volume..
 
+```bash
 docker volume create volumeName
 docker container run --name containerName -v volumeName:/path/in/container busybox
+```
 
 You can do the above in single line as well..
 
+```bash
 docker container run --name webserver -v C:\users\beayu:/app alpine
+```
 
 ## For creating a network..
 
@@ -111,7 +131,9 @@ docker network disconnect bridge1 c2
 
 ## Creating a new network using customized network parameters:
 
+```bash
 docker network create --driver=bridge --subnet=10.10.0.0/16 --ip-range=10.10.10.0/24 --gateway=10.10.10.10 newbridge
+```
 
 Docker Network: Host
 
@@ -137,12 +159,14 @@ docker container run --name c1 --net macvlan --mac-address=02:00:00:00:00:01 --i
 
 ## Docker log
 
-docker logs --details containerName
+`docker logs --details containerName`
 
 ## Docker Stats/Memory-CPU Limitations
 
+```bash
 docker stats
 docker container run --name [containerName] --memory=512m --memory-swap=512m --cpu-shares=512 --cpu-period=100000 --cpu-quota=50000 nginx
+```
 
 ## Docker Environment Variables
 
@@ -202,7 +226,7 @@ CMD ["java", "hello"]
 
 ## Brief about Docker compose..
 
-```dockerfile
+```yaml
 version: "3.8"
 
 services:
@@ -238,5 +262,13 @@ volumes:
 networks:
   mynet:
     driver: bridge
+```
+
+After saving the file as "docker-compose.yml", run the following commands where the docker-compose file is, to create containers, volumes, networks:
+
+```bash
+
+docker-compose up -d
+docker-compose down
 
 ```

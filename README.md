@@ -224,7 +224,7 @@ COPY --from=compiler /usr/src/myapp .
 CMD ["java", "hello"]
 ```
 
-and then you run `docker image build -t hello .;`
+and then you run `docker image build -t hello .`
 
 ## Brief about Docker compose..
 

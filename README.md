@@ -23,7 +23,7 @@ docker image ls -q
 
 ```bash
 # For container
-docker container rm -rf $(docker container ls -q)
+docker container rm -f $(docker container ls -q)
 
 # For images
 docker rmi $(docker image ls -q)
@@ -32,7 +32,7 @@ docker rmi $(docker image ls -q)
 ## Deleting containers
 
 ```bash
-docker container rm -rf container_name
+docker container rm -f container_name
 ```
 
 ## For listing images

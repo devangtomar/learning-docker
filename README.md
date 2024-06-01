@@ -9,6 +9,26 @@ docker container ls -a
 docker ps -a
 ```
 
+## For listing containers/images with just their docker container ID or docker image ID
+
+```bash
+# For container
+docker container ls -q
+
+# For images
+docker image ls -q
+```
+
+## To delete all docker container or images
+
+```bash
+# For container
+docker container rm -rf $(docker container ls -q)
+
+# For images
+docker rmi $(docker image ls -q)
+```
+
 ## Deleting containers
 
 ```bash
